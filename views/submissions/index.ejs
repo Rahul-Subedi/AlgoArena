@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Submissions | AlgoArena</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: #0f0f0f;
+      color: #e0e0e0;
+      padding: 2rem;
+    }
+
+    .nav {
+      margin-bottom: 2rem;
+    }
+
+    .nav a {
+      text-decoration: none;
+      font-weight: 600;
+      color: #72f9f9;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+    }
+
+    .nav a:hover {
+      color: #00d1ff;
+      text-shadow: 0 0 6px #00d1ff;
+    }
+
+    h2 {
+      font-size: 2.5rem;
+      background: linear-gradient(to right, #ff00cc, #3333ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.5rem;
+      transition: transform 0.3s ease;
+    }
+
+    h2:hover {
+      transform: scale(1.03);
+    }
+
+    .problems-btn {
+      display: inline-block;
+      margin-bottom: 1.5rem;
+      padding: 0.6rem 1.2rem;
+      border-radius: 6px;
+      background: linear-gradient(to right, #ff00cc, #3333ff);
+      color: #fff;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .problems-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 12px #b66bff;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #1e1e1e;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    thead {
+      background: linear-gradient(to right, #00f5c9, #00d1ff);
+    }
+
+    thead th {
+      padding: 1rem;
+      text-align: left;
+      color: #000;
+      font-weight: 600;
+    }
+
+    tbody td {
+      padding: 1rem;
+      border-bottom: 1px solid #333;
+    }
+
+    tbody tr:hover {
+      background-color: #222;
+    }
+
+    .verdict {
+      font-weight: bold;
+    }
+
+    .pending {
+      color: orange;
+    }
+
+    .accepted {
+      color: #00ff8f;
+    }
+
+    .rejected {
+      color: #ff5e5e;
+    }
+
+    .view-btn {
+      background: none;
+      border: none;
+      color: #00d1ff;
+      text-decoration: underline;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 0.95rem;
+    }
+
+    .code-box {
+      background: #111;
+      color: #00ffcc;
+      margin-top: 0.5rem;
+      padding: 0.6rem;
+      border-left: 4px solid #00d1ff;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      display: none;
+    }
+
+    .na {
+      color: #777;
+      font-style: italic;
+    }
+
+    @media (max-width: 768px) {
+      table, thead, tbody, th, td, tr {
+        display: block;
+      }
+
+      thead {
+        display: none;
+      }
+
+      tr {
+        margin-bottom: 1rem;
+        border: 1px solid #333;
+        border-radius: 10px;
+        padding: 1rem;
+      }
+
+      td {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.5rem 0;
+      }
+
+      td::before {
+        content: attr(data-label);
+        font-weight: bold;
+        color: #888;
+      }
+
+      .code-box {
+        margin-left: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="nav">
+    <a href="/">🏠 Home</a>
+  </div>
+
+  <h2>📜 My Submissions</h2>
+
+  <a class="problems-btn" href="/problems">📘 View All Problems</a>
+
+  <% if (submissions.length === 0) { %>
+    <p>No submissions yet.</p>
+  <% } else { %>
+    <table>
+      <thead>
+        <tr>
+          <th>Problem</th>
+          <th>Language</th>
+          <th>Verdict</th>
+          <th>Submitted</th>
+          <th>Code</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% submissions.forEach((sub, index) => { %>
+          <tr>
+            <td data-label="Problem">
+              <% if (sub.problem) { %>
+                <a href="/problems/<%= sub.problem._id %>" style="color: #4de5ff; text-decoration: none;"><%= sub.problem.title %></a>
+              <% } else { %>
+                <em>Problem Deleted</em>
+              <% } %>
+            </td>
+            <td data-label="Language"><%= sub.language %></td>
+            <td data-label="Verdict" class="verdict <%= sub.verdict.toLowerCase() %>"><%= sub.verdict %></td>
+            <td data-label="Submitted"><%= sub.submittedAt.toLocaleString() %></td>
+            <td data-label="Code">
+              <% if (sub.verdict === "Accepted" && sub.code) { %>
+                <button class="view-btn" onclick="toggleCode('code-<%= index %>')">View Code</button>
+                <pre id="code-<%= index %>" class="code-box"><%= sub.code %></pre>
+              <% } else { %>
+                <span class="na">N/A</span>
+              <% } %>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  <% } %>
+
+  <script>
+    function toggleCode(id) {
+      const codeBox = document.getElementById(id);
+      if (codeBox.style.display === 'block') {
+        codeBox.style.display = 'none';
+      } else {
+        codeBox.style.display = 'block';
+      }
+    }
+
+    // Optional: live refresh
+    async function fetchLatestSubmissions() {
+      try {
+        const res = await fetch("/submissions/api/latest");
+        const data = await res.json();
+        // NOTE: You'd need to re-render similar HTML structure for code view if dynamic update is needed.
+      } catch (err) {
+        console.error("❌ Failed to fetch latest submissions:", err);
+      }
+    }
+
+    setInterval(fetchLatestSubmissions, 3000);
+    fetchLatestSubmissions();
+  </script>
+</body>
+</html>

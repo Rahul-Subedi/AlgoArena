@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Register – AlgoArena</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  
+  <!-- GSAP for animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: radial-gradient(ellipse at bottom right, #0e0e0e, #000 90%);
+      color: #f0f0f0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .register-container {
+      background: #161616;
+      padding: 3rem 2.5rem;
+      border-radius: 18px;
+      box-shadow: 0 0 40px rgba(0, 255, 255, 0.05), 0 0 25px rgba(255, 0, 255, 0.05);
+      max-width: 420px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .register-container h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2.2rem;
+      margin-bottom: 1.8rem;
+      background: linear-gradient(90deg, #00f0ff, #ff00cc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    input {
+      padding: 0.8rem 1rem;
+      margin-bottom: 1rem;
+      background-color: #111;
+      border: 1px solid #333;
+      border-radius: 10px;
+      color: #fff;
+      font-size: 1rem;
+      transition: border 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #0ff;
+      box-shadow: 0 0 12px rgba(0, 255, 255, 0.25);
+    }
+
+    button {
+      padding: 0.8rem;
+      background: linear-gradient(135deg, #ff00cc, #00f0ff);
+      border: none;
+      border-radius: 10px;
+      color: white;
+      font-weight: bold;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 14px rgba(0, 255, 255, 0.3);
+    }
+
+    .login-redirect {
+      margin-top: 1.2rem;
+      font-size: 0.95rem;
+      color: #ccc;
+    }
+
+    .login-redirect a {
+      color: #0ff;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    .login-redirect a:hover {
+      color: #ff00cc;
+    }
+  </style>
+</head>
+<body>
+  <div class="register-container">
+    <h1>📝 Register at AlgoArena</h1>
+    <form action="/register" method="POST">
+      <input type="text" name="username" placeholder="Enter your username" required>
+      <input type="email" name="email" placeholder="Enter your email (optional)">
+      <input type="password" name="password" placeholder="Create a password" required>
+      <button type="submit">Create Account</button>
+    </form>
+    <div class="login-redirect">
+      Already have an account? <a href="/login">Log in</a>
+    </div>
+  </div>
+
+  <script>
+    gsap.from(".register-container", {
+      y: 50,
+      opacity: 0,
+      duration: 1.2,
+      ease: "power2.out"
+    });
+  </script>
+</body>
+</html>

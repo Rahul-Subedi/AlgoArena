@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title><%= username %>'s Profile | AlgoArena</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(145deg, #0d0d0d, #1a1a1a);
+      color: white;
+    }
+
+    .glass {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 4px 30px rgba(128, 0, 255, 0.25);
+    }
+
+    h1, h2 {
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    .glow-button {
+      transition: all 0.3s ease-in-out;
+    }
+
+    .glow-button:hover {
+      box-shadow: 0 0 12px rgba(255, 0, 255, 0.5), 0 0 24px rgba(128, 0, 255, 0.7);
+      transform: translateY(-2px) scale(1.03);
+    }
+  </style>
+</head>
+
+<body class="min-h-screen flex flex-col items-center justify-center p-6">
+
+  <div class="glass text-center p-10 rounded-3xl w-full max-w-2xl transition duration-300">
+    <h1 class="text-4xl font-bold mb-2 bg-gradient-to-r from-purple-400 via-fuchsia-500 to-pink-500 text-transparent bg-clip-text">
+      <%= fullName %>
+    </h1>
+    <h2 class="text-xl mb-3 text-gray-300">@<%= username %></h2>
+    <p class="text-md text-gray-400 mb-6">📧 <%= email %></p>
+
+    <p class="text-lg mb-8">💡 Problems Solved: <span class="font-semibold text-green-400"><%= solvedCount %></span></p>
+
+    <div class="flex justify-center gap-6">
+      <a href="/" class="px-6 py-2 rounded-full bg-purple-700 hover:bg-purple-800 glow-button font-semibold">
+        🔙 Home
+      </a>
+      <a href="/leaderboard" class="px-6 py-2 rounded-full bg-indigo-700 hover:bg-indigo-800 glow-button font-semibold">
+        🏆 Leaderboard
+      </a>
+    </div>
+  </div>
+
+  <footer class="mt-12 py-4 text-gray-500 text-sm text-center w-full">
+    © 2025 <span class="text-purple-400 font-bold">AlgoArena</span> — Built with ❤️ by Broodie
+  </footer>
+</body>
+</html>

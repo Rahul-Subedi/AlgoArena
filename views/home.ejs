@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AlgoArena</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: radial-gradient(ellipse at top left, #121212, #090909 90%);
+      color: #f0f0f0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    #bg-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+    }
+
+    .hero {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 3rem 2rem;
+    }
+
+    .logo-img {
+      height: 80px;
+      margin-bottom: 1rem;
+    }
+
+    .logo {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 3.5rem;
+      background: linear-gradient(90deg, #ff00cc, #3333ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 12px rgba(255, 0, 204, 0.3), 0 0 20px rgba(51, 51, 255, 0.3);
+      margin-bottom: 1.2rem;
+      text-align: center;
+    }
+
+    .tagline {
+      font-size: 1.3rem;
+      color: #aaa;
+      margin-bottom: 1.2rem;
+      text-align: center;
+      max-width: 720px;
+      line-height: 1.6;
+    }
+
+    .note {
+      color: #888;
+      font-size: 0.95rem;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      margin-bottom: 2rem;
+    }
+
+    .nav a, .nav span {
+      text-decoration: none;
+      color: #0ff;
+      background-color: #1e1e1e;
+      padding: 0.8rem 1.8rem;
+      border-radius: 12px;
+      font-weight: bold;
+      font-size: 1rem;
+      transition: transform 0.2s ease, background-color 0.3s;
+    }
+
+    .nav a:hover {
+      background-color: #2a2a2a;
+      transform: scale(1.06);
+    }
+
+    .nav .disabled {
+      color: #666;
+      cursor: not-allowed;
+      background-color: #111;
+      pointer-events: none;
+    }
+
+    .welcome {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      color: #eee;
+      text-align: center;
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #555;
+      padding: 1rem;
+      border-top: 1px solid #222;
+    }
+
+    @media screen and (max-width: 600px) {
+      .logo { font-size: 2.3rem; }
+      .tagline { font-size: 1rem; padding: 0 1rem; }
+      .nav a, .nav span { padding: 0.6rem 1.3rem; font-size: 0.95rem; }
+      .logo-img { height: 60px; }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="bg-canvas"></canvas>
+
+  <section class="hero">
+    <!-- <img src="/images/logo.png" alt="AlgoArena Logo" class="logo-img" /> -->
+    <div class="logo"> <strong><b> <> AlgoArena</b>  </strong> </div>
+    <div class="tagline">
+      Step into the future of coding – Solve DSA problems, visualize algorithms in real-time, and climb the leaderboard.
+    </div>
+    <div class="note">
+      🚀 Currently only <strong>C++</strong> is supported. More languages coming soon!
+    </div>
+
+    <% if (!currentUser) { %>
+      <div class="nav">
+        <a href="/register">📝 Register</a>
+        <a href="/login">🔐 Login</a>
+      </div>
+    <% } else { %>
+      <div class="welcome">👋 Welcome, <strong><%= currentUser.username %></strong>!</div>
+
+      <div class="nav">
+        <a href="/profile">👤 My Profile</a>
+        <a href="/problems">📄 View Problems</a>
+        <a href="/submissions">📬 My Submissions</a>
+        <a href="/leaderboard">🏆 Leaderboard</a>
+      </div>
+      <div class="nav">
+        
+        <span style="color: rgb(191, 78, 78);">🏆 Contests (Coming Soon)</span>
+        <span style="color: rgb(176, 77, 77);">🏆 CodeAi - A ChatBot (Coming Soon)</span>
+      </div>
+      <div class="nav">
+        <a href="/logout" style="color: rgb(239, 130, 28);">🚪 Logout</a>
+      </div>
+    <% } %>
+  </section>
+
+  <div class="footer">
+    © <%= new Date().getFullYear() %> AlgoArena Pvt Ltd — Code. Compete. Conquer.
+    <br>
+    © <%= new Date().getFullYear() %> Developer & Owner - Rahul Subedi | NIT Durgapur | Electrical Engineering 2028
+  </div>
+
+  <!-- GSAP animations -->
+  <script>
+    gsap.from(".logo-img", {
+      opacity: 0,
+      y: -40,
+      duration: 1.2,
+      ease: "power3.out"
+    });
+
+    gsap.from(".logo", {
+      opacity: 0,
+      y: -30,
+      duration: 1.2,
+      delay: 0.2,
+      ease: "power3.out"
+    });
+
+    gsap.from(".tagline", {
+      opacity: 0,
+      y: 20,
+      duration: 1,
+      delay: 0.5,
+      ease: "power2.out"
+    });
+
+    gsap.from(".nav a, .nav span", {
+      opacity: 0,
+      scale: 0.8,
+      duration: 0.6,
+      stagger: 0.2,
+      delay: 0.8,
+      ease: "back.out(1.7)"
+    });
+  </script>
+
+  <!-- Particle animation background -->
+  <script>
+    const canvas = document.getElementById('bg-canvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const particles = [];
+    for (let i = 0; i < 80; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        radius: Math.random() * 1.8 + 0.8,
+        dx: (Math.random() - 0.5) * 0.8,
+        dy: (Math.random() - 0.5) * 0.8,
+      });
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = '#0ff';
+
+      particles.forEach((p, index) => {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fill();
+
+        p.x += p.dx;
+        p.y += p.dy;
+
+        if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
+        if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
+
+        for (let j = index + 1; j < particles.length; j++) {
+          const p2 = particles[j];
+          const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
+          if (dist < 100) {
+            ctx.beginPath();
+            ctx.strokeStyle = 'rgba(0,255,255,0.1)';
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(p2.x, p2.y);
+            ctx.stroke();
+          }
+        }
+      });
+
+      requestAnimationFrame(draw);
+    }
+
+    draw();
+
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+  </script>
+</body>
+</html>

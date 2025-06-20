@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Add Problem | AlgoArena</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      font-family: 'Inter', sans-serif;
+      background: #0f111a;
+      color: #eaeaea;
+    }
+
+    h2 {
+      font-family: 'Orbitron', sans-serif;
+      color: #4db8ff;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    a {
+      color: #4db8ff;
+      text-decoration: none;
+      font-weight: bold;
+      display: inline-block;
+      margin-right: 1.5rem;
+      transition: color 0.2s;
+    }
+
+    a:hover {
+      color: #3399ff;
+    }
+
+    .nav-links {
+      margin-bottom: 2rem;
+    }
+
+    form {
+      background-color: #1a1c29;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 0 12px rgba(77, 184, 255, 0.2);
+      max-width: 700px;
+      margin: auto;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 0.75rem;
+      border: none;
+      border-radius: 8px;
+      margin-bottom: 1.2rem;
+      font-size: 1rem;
+      background-color: #2a2d3e;
+      color: #f0f0f0;
+    }
+
+    input:focus, textarea:focus, select:focus {
+      outline: none;
+      border: 1px solid #4db8ff;
+      box-shadow: 0 0 8px rgba(77, 184, 255, 0.3);
+    }
+
+    button {
+      background-color: #4db8ff;
+      color: #0f111a;
+      border: none;
+      padding: 0.75rem 2rem;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #3399ff;
+    }
+
+    .testcase-block {
+      background: #2a2d3e;
+      padding: 1rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+
+    .testcase-block h4 {
+      margin-top: 0;
+    }
+
+    .add-btn {
+      margin-top: -1rem;
+      margin-bottom: 1rem;
+      background-color: #28a745;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="nav-links">
+    <a href="/">🏠 Home</a>
+    <a href="/problems">📋 View All Problems</a>
+  </div>
+
+  <h2>➕ Add New Problem</h2>
+
+  <form action="/problems" method="POST">
+    <input type="text" name="title" placeholder="Problem Title" required />
+    <textarea name="description" placeholder="Problem Description" rows="5" required></textarea>
+    <textarea name="inputFormat" placeholder="Input Format (e.g., 'n = 5')" rows="2"></textarea>
+    <textarea name="outputFormat" placeholder="Output Format (e.g., 'True')" rows="2"></textarea>
+    <input type="text" name="difficulty" placeholder="Difficulty (Easy / Medium / Hard)" required />
+
+    <div id="testCasesContainer">
+      <h3>Test Cases</h3>
+    </div>
+
+    <button type="button" class="add-btn" onclick="addTestCase()">➕ Add Test Case</button>
+
+    <button type="submit">Add Problem</button>
+  </form>
+
+  <script>
+    function addTestCase() {
+      const container = document.getElementById("testCasesContainer");
+
+      const div = document.createElement("div");
+      div.className = "testcase-block";
+      div.innerHTML = `
+        <h4>Test Case</h4>
+        <select name="testCases[][language]" required>
+          <option value="">Select Language</option>
+          <option value="cpp">C++</option>
+          <option value="python">Python</option>
+          <option value="java">Java</option>
+        </select>
+        <textarea name="testCases[][input]" placeholder="Input" rows="2" required></textarea>
+        <textarea name="testCases[][output]" placeholder="Expected Output" rows="2" required></textarea>
+      `;
+      container.appendChild(div);
+    }
+  </script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script>
+    gsap.from("form", { opacity: 0, y: 50, duration: 0.8, ease: "power3.out" });
+    gsap.from("h2", { opacity: 0, y: -30, duration: 0.6, delay: 0.2, ease: "power2.out" });
+    gsap.from(".nav-links a", { opacity: 0, y: -20, duration: 0.5, delay: 0.1, stagger: 0.1, ease: "power2.out" });
+  </script>
+  <script>
+  function cleanInput(str) {
+    return str.replace(/^\s*\w+\s*=\s*/, "").trim();
+  }
+
+  document.querySelector("form").addEventListener("submit", () => {
+    // Clean inputFormat and outputFormat
+    const inputFormat = document.querySelector("textarea[name='inputFormat']");
+    const outputFormat = document.querySelector("textarea[name='outputFormat']");
+    if (inputFormat) inputFormat.value = cleanInput(inputFormat.value);
+    if (outputFormat) outputFormat.value = cleanInput(outputFormat.value);
+
+    // Clean all test case inputs
+    document.querySelectorAll("textarea[name='testCases[][input]']").forEach(tc => {
+      tc.value = cleanInput(tc.value);
+    });
+  });
+</script>
+
+</body>
+</html>

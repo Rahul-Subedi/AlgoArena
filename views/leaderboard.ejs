@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Leaderboard – AlgoArena</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      background: radial-gradient(ellipse at center, #121212, #090909 50%);
+      color: #f0f0f0;
+      font-family: 'Inter', sans-serif;
+      padding: 2rem;
+      margin: 0;
+    }
+
+    .leaderboard-container {
+      max-width: 800px;
+      margin: auto;
+      background: #1c1c1c;
+      padding: 2.5rem;
+      border-radius: 18px;
+      box-shadow: 0 0 30px rgba(0, 255, 255, 0.1), 0 0 40px rgba(255, 0, 255, 0.08);
+    }
+
+    h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2rem;
+      text-align: center;
+      background: linear-gradient(90deg, #ff00cc, #00ffff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 2rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+
+    th, td {
+      padding: 1rem;
+      border-bottom: 1px solid #333;
+    }
+
+    th {
+      color: #0ff;
+      font-weight: 600;
+    }
+
+    tr:hover {
+      background-color: #222;
+    }
+
+    .rank {
+      font-weight: bold;
+      color: #ff00cc;
+    }
+
+    .username-link {
+      color: #0ff;
+      text-decoration: none;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+
+    .username-link:hover {
+      color: #fff;
+    }
+
+    .branding-footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: #000;
+      color: #aaa;
+      text-align: center;
+      padding: 0.5rem 0;
+      font-size: 0.85rem;
+      font-family: 'Inter', sans-serif;
+      z-index: 1000;
+      text-shadow: 0 0 5px #bfa4a4;
+    }
+
+    .go-home-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: #fff;
+      padding: 0.6rem 1.2rem;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 600;
+      font-family: 'Inter', sans-serif;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(0, 255, 255, 0.2);
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 999;
+    }
+
+    .go-home-btn:hover {
+      background: linear-gradient(135deg, #2c5364, #203a43, #0f2027);
+      box-shadow: 0 6px 16px rgba(0, 255, 255, 0.4);
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+  <a href="/" class="go-home-btn">🏠 Go to Home</a>
+
+  <div class="leaderboard-container">
+    <h1>🏆 AlgoArena Leaderboard</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Username</th>
+          <th>Full Name</th>
+          <th>Problems Solved</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% leaderboardData.forEach((user, index) => { %>
+          <tr>
+            <td class="rank"><%= index + 1 %></td>
+            <td>
+                <a class="username-link" href="/leaderboard/user/<%= user._id %>/view">
+                <%= user.username %>
+              </a>
+            </td>
+            <td><%= user.fullName %></td>
+            <td><%= user.solvedCount %></td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+
+  <footer class="branding-footer">
+    <p>🚀 Built with 💻 by Team AlgoArena | © 2025 AlgoArena</p>
+  </footer>
+</body>
+</html>

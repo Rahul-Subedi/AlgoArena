@@ -1,0 +1,572 @@
+<!-- <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #121212;
+      color: #e0e0e0;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .branding {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      font-size: 2rem;
+      font-weight: bold;
+      background: linear-gradient(90deg, #ff00cc, #9933ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-align: center;
+      padding: 1rem 0;
+      letter-spacing: 0.5px;
+      background-color: #121212;
+      border-bottom: 1px solid #333;
+    }
+
+    .container {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+      padding-top: 80px; /* height of branding bar */
+      height: calc(100vh - 80px);
+    }
+
+    .problem-section,
+    .submission-section {
+      padding: 2rem;
+      overflow-y: auto;
+    }
+
+    .problem-section {
+      width: 60%;
+      background: #1a1a1a;
+      border-right: 1px solid #333;
+      position: relative;
+    }
+
+    .submission-section {
+      width: 40%;
+      background: #1e1e1e;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    h2.problem-title {
+      font-size: 2.3rem;
+      font-weight: 600;
+      background: linear-gradient(to right, #00e0ff, #a800ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 1rem;
+    }
+
+    h3 {
+      margin-top: 1.5rem;
+      color: #84dfff;
+    }
+
+    p {
+      line-height: 1.6;
+    }
+
+    pre {
+      background-color: #2a2a2a;
+      padding: 1rem;
+      border-radius: 6px;
+      color: #c0f9ff;
+      overflow-x: auto;
+      font-family: 'Courier New', monospace;
+    }
+
+    .back-link {
+      display: inline-block;
+      font-size: 0.9rem;
+      padding: 0.5rem 1rem;
+      background: #2b2b2b;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 6px;
+      margin-bottom: 1.5rem;
+      border: 1px solid #444;
+      transition: background 0.2s ease, border 0.2s;
+    }
+
+    .back-link:hover {
+      background: #3d3d3d;
+      border-color: #666;
+    }
+
+    .home-link {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      background: #00d2ff;
+      color: #000;
+      font-weight: bold;
+      padding: 0.4rem 0.8rem;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background 0.2s ease;
+    }
+
+    .home-link:hover {
+      background: #4ee4ff;
+    }
+
+    label {
+      margin-top: 1.5rem;
+      font-weight: bold;
+      color: #a9a9a9;
+    }
+
+    select {
+      margin-top: 0.4rem;
+      padding: 0.5rem;
+      font-size: 1rem;
+      border-radius: 6px;
+      border: 1px solid #666;
+      background-color: #1a1a1a;
+      color: #fff;
+    }
+
+    .CodeMirror {
+      height: 300px;
+      font-size: 14px;
+      border: 1px solid #444;
+      border-radius: 5px;
+      background: #282c34;
+    }
+
+    button {
+      margin-top: 1rem;
+      padding: 0.6rem 1.2rem;
+      font-weight: bold;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 0 4px rgba(255, 255, 255, 0.05);
+    }
+
+    button[type="submit"] {
+      background: linear-gradient(to right, #ff00cc, #3333ff);
+      color: #fff;
+    }
+
+    button#runCodeBtn {
+      background-color: #00ff99;
+      color: #000;
+    }
+
+    button:hover {
+      box-shadow: 0 0 6px rgba(255, 255, 255, 0.1);
+    }
+
+    #outputBox {
+      margin-top: 1.5rem;
+      display: none;
+      background-color: #000;
+      border: 1px solid #00ff99;
+      border-radius: 6px;
+      padding: 1rem;
+      font-family: monospace;
+      white-space: pre-wrap;
+      color: #0f0;
+    }
+
+    .footer-branding {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      color: #777;
+      font-style: italic;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+        padding-top: 80px;
+        height: auto;
+      }
+
+      .problem-section,
+      .submission-section {
+        width: 100%;
+        height: auto;
+      }
+
+      .branding {
+        font-size: 1.5rem;
+      }
+
+      .home-link {
+        position: static;
+        margin-top: 1rem;
+      }
+    }
+  </style> -->
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><%= problem.title %> | AlgoArena</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/codemirror.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/theme/material-darker.min.css">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #121212;
+      color: #e0e0e0;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .branding {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      font-size: 1.7rem;
+      font-weight: bold;
+      background: linear-gradient(90deg, #cf2525, #7009d7);
+      /* background: linear-gradient(90deg, #ff00cc, #9933ff); */
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-align: center;
+      padding: 1.3rem 0;
+      letter-spacing: 0.5px;
+      background-color: #121212;
+      border-bottom: 1px solid #333;
+    }
+
+    .container {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+      padding-top: 80px; /* height of branding bar */
+      height: calc(100vh - 80px);
+    }
+
+    .problem-section,
+    .submission-section {
+      padding: 2rem;
+      overflow-y: auto;
+    }
+
+    .problem-section {
+      width: 60%;
+      background: #1a1a1a;
+      border-right: 1px solid #333;
+      position: relative;
+    }
+
+    .submission-section {
+      width: 40%;
+      background: #1e1e1e;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    h2.problem-title {
+      font-size: 2.3rem;
+      font-weight: 600;
+      background: linear-gradient(to right, #00e0ff, #a800ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 1rem;
+    }
+
+    h3 {
+      margin-top: 1.5rem;
+      color: #84dfff;
+    }
+
+    p {
+      line-height: 1.6;
+    }
+
+    pre {
+      background-color: #2a2a2a;
+      padding: 1rem;
+      border-radius: 6px;
+      color: #c0f9ff;
+      overflow-x: auto;
+      font-family: 'Courier New', monospace;
+    }
+
+    .back-link {
+      display: inline-block;
+      font-size: 0.9rem;
+      padding: 0.5rem 1rem;
+      background: #2b2b2b;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 6px;
+      margin-bottom: 1.5rem;
+      border: 1px solid #444;
+      transition: background 0.2s ease, border 0.2s;
+    }
+
+    .back-link:hover {
+      background: #3d3d3d;
+      border-color: #666;
+    }
+
+    .home-link {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      background: #00d2ff;
+      color: #000;
+      font-weight: bold;
+      padding: 0.4rem 0.8rem;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background 0.2s ease;
+    }
+
+    .home-link:hover {
+      background: #4ee4ff;
+    }
+
+    label {
+      margin-top: 1.5rem;
+      font-weight: bold;
+      color: #a9a9a9;
+    }
+
+    select {
+      margin-top: 0.4rem;
+      padding: 0.5rem;
+      font-size: 1rem;
+      border-radius: 6px;
+      border: 1px solid #666;
+      background-color: #1a1a1a;
+      color: #fff;
+    }
+
+    .CodeMirror {
+      height: 300px;
+      font-size: 14px;
+      border: 1px solid #444;
+      border-radius: 5px;
+      background: #282c34;
+    }
+
+    button {
+      margin-top: 1rem;
+      padding: 0.6rem 1.2rem;
+      font-weight: bold;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 0 4px rgba(255, 255, 255, 0.05);
+    }
+
+    button[type="submit"] {
+      background: linear-gradient(to right, #ff00cc, #3333ff);
+      color: #fff;
+    }
+
+    button#runCodeBtn {
+      background-color: #00ff99;
+      color: #000;
+    }
+
+    button:hover {
+      box-shadow: 0 0 6px rgba(255, 255, 255, 0.1);
+    }
+
+    #outputBox {
+      margin-top: 1.5rem;
+      display: none;
+      background-color: #000;
+      border: 1px solid #00ff99;
+      border-radius: 6px;
+      padding: 1rem;
+      font-family: monospace;
+      white-space: pre-wrap;
+      color: #0f0;
+    }
+
+    .footer-branding {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      color: #777;
+      font-style: italic;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+        padding-top: 80px;
+        height: auto;
+      }
+
+      .problem-section,
+      .submission-section {
+        width: 100%;
+        height: auto;
+      }
+
+      .branding {
+        font-size: 1.2rem;
+      }
+
+      .home-link {
+        position: static;
+        margin-top: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="branding">⚔️ AlgoArena Pvt Ltd</div>
+  <div class="container">
+    <div class="problem-section">
+      <a href="/problems" class="back-link">⬅️ Back to Problems</a>
+      <h2 class="problem-title"><%= problem.title %> <small style="color:#ccc;">(<%= problem.difficulty %>)</small></h2>
+      <p><%= problem.description %></p>
+
+      <!-- 📥 Sample Input -->
+<% if (problem.sampleInput) { %>
+  <div class="mb-3">
+    <h5 class="text-info">📥 Sample Input:</h5>
+    <pre><%= problem.sampleInput %></pre>
+  </div>
+<% } %>
+
+<!-- 📤 Expected Output -->
+<% if (problem.sampleOutput) { %>
+  <div class="mb-3">
+    <h5 class="text-success">📤 Expected Output:</h5>
+    <pre><%= problem.sampleOutput %></pre>
+  </div>
+<% } %>
+
+<!-- 📦 All Test Cases -->
+<% if (problem.testCases && problem.testCases.length > 0) { %>
+  <h3>📦 All Test Cases</h3>
+  <% problem.testCases.forEach((tc, index) => { %>
+    <div class="mb-3" style="border: 1px solid #444; padding: 1rem; border-radius: 6px; margin-bottom: 1rem; background-color: <%= tc.hidden ? '#2b1f1f' : '#1f2b1f' %>;">
+      <strong style="color: <%= tc.hidden ? '#ff7777' : '#77ff77' %>;">
+        Test Case <%= index + 1 %> <%= tc.hidden ? "(Hidden)" : "(Public)" %>
+      </strong>
+      <div>
+        <span>📥 <strong>Input:</strong></span>
+        <pre><%= tc.input %></pre>
+      </div>
+      <div>
+        <span>📤 <strong>Expected Output:</strong></span>
+        <pre><%= tc.output %></pre>
+      </div>
+    </div>
+  <% }) %>
+<% } %>
+
+
+      <div class="footer-branding">✨ Powered by AlgoArena</div>
+    </div>
+
+    <div class="submission-section">
+      <a href="/" class="home-link">🏠 Home</a>
+      <h2>💻 Try this problem</h2>
+
+      <form id="submissionForm" action="/submissions/submit" method="POST">
+        <input type="hidden" name="problemId" value="<%= problem._id %>">
+        <input type="hidden" name="language" value="cpp">
+
+        <label for="code">Your Code:</label>
+        <textarea name="code" id="code" placeholder="Write your solution here..."></textarea>
+
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+          <button type="submit">🚀 Submit</button>
+          <button type="button" id="runCodeBtn">▶️ Run Code</button>
+        </div>
+      </form>
+
+      <div id="outputBox">
+        <h3 style="margin-top: 0; color: #0ff;">🧪 Mock Output</h3>
+        <pre id="mockResult">Running...</pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- CodeMirror Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/mode/clike/clike.min.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const textarea = document.getElementById("code");
+      const runCodeBtn = document.getElementById("runCodeBtn");
+      const outputBox = document.getElementById("outputBox");
+      const mockResult = document.getElementById("mockResult");
+
+      const editor = CodeMirror.fromTextArea(textarea, {
+        lineNumbers: true,
+        mode: "text/x-c++src",
+        theme: "material-darker",
+        tabSize: 2,
+        lineWrapping: true
+      });
+
+      document.getElementById("submissionForm").addEventListener("submit", function () {
+        textarea.value = editor.getValue();
+      });
+
+      runCodeBtn.addEventListener("click", async function () {
+        const code = editor.getValue();
+        const problemId = "<%= problem._id %>";
+        const language = "cpp";
+
+        outputBox.style.display = "block";
+        mockResult.textContent = "⏳ Running your code...";
+
+        try {
+          const response = await fetch("/submissions/mock-run", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ code, language, problemId })
+          });
+
+          const result = await response.json();
+
+          if (response.ok && result) {
+            mockResult.textContent = `📥 Input:\n${result.input}\n\n📤 Expected Output:\n${result.expectedOutput}\n\n🛠️ Your Output:\n${result.actualOutput}\n\n✅ Verdict: ${result.verdict}`;
+          } else {
+            mockResult.textContent = "❌ Failed to run the code.";
+          }
+        } catch (err) {
+          mockResult.textContent = "❌ Error: " + err.message;
+        }
+      });
+    });
+  </script>
+  
+
+</body>
+</html>

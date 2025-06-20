@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login – AlgoArena</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: radial-gradient(ellipse at top left, #121212, #090909 90%);
+      color: #f0f0f0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .login-container {
+      background-color: #1a1a1a;
+      padding: 3rem 2.5rem;
+      border-radius: 16px;
+      box-shadow: 0 0 30px rgba(255, 0, 255, 0.1), 0 0 40px rgba(0, 255, 255, 0.08);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    .login-container h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(90deg, #ff00cc, #3333ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    input {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      margin: 0.7rem 0;
+      background-color: #111;
+      border: 1px solid #333;
+      border-radius: 10px;
+      color: #fff;
+      font-size: 1rem;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #0ff;
+      box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+    }
+
+    button {
+      width: 100%;
+      margin-top: 1.2rem;
+      padding: 0.75rem;
+      background: linear-gradient(135deg, #00f0ff, #ff00cc);
+      border: none;
+      border-radius: 10px;
+      color: white;
+      font-weight: bold;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 12px rgba(0, 255, 255, 0.4);
+    }
+
+    .register-link {
+      margin-top: 1.5rem;
+      display: block;
+      color: #999;
+      font-size: 0.95rem;
+      transition: color 0.3s ease;
+    }
+
+    .register-link:hover {
+      color: #0ff;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h1>🔐 Login to AlgoArena</h1>
+    <form action="/login" method="POST">
+      <input type="text" name="username" placeholder="Username" required>
+      <input type="password" name="password" placeholder="Password" required>
+      <button type="submit">Login</button>
+    </form>
+
+    <a class="register-link" href="/register">🚀 Don't have an account? Register here</a>
+  </div>
+
+  <script>
+    gsap.from(".login-container", {
+      y: 30,
+      opacity: 0,
+      duration: 1.2,
+      ease: "power2.out"
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Profile – AlgoArena</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: radial-gradient(ellipse at top left, #121212, #090909 90%);
+      color: #f0f0f0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      padding: 1rem;
+    }
+
+    .profile-container {
+      background-color: #1a1a1a;
+      padding: 3rem 2.5rem;
+      border-radius: 16px;
+      box-shadow: 0 0 30px rgba(255, 0, 255, 0.1), 0 0 40px rgba(0, 255, 255, 0.08);
+      width: 100%;
+      max-width: 500px;
+      text-align: left;
+    }
+
+    .profile-container h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2rem;
+      margin-bottom: 1.8rem;
+      background: linear-gradient(90deg, #ff00cc, #3333ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-align: center;
+    }
+
+    p {
+      font-size: 1.1rem;
+      margin: 0.9rem 0;
+      line-height: 1.5;
+    }
+
+    strong {
+      color: #0ff;
+    }
+
+    a {
+      display: inline-block;
+      margin-top: 2rem;
+      color: #999;
+      font-size: 0.95rem;
+      text-align: center;
+      width: 100%;
+      transition: color 0.3s ease;
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: #0ff;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="profile-container">
+    <h1>👤 My Profile</h1>
+    <% if (currentUser) { %>
+      <p><strong>Username:</strong> <%= currentUser.username %></p>
+      <p><strong>Email:</strong> <%= currentUser.email %></p>
+      
+      <p><strong>Total Problems Solved:</strong> <%= solvedCount || 0 %></p>
+    <% } else { %>
+      <p>User data not found. Please <a href="/login">login</a> again.</p>
+    <% } %>
+    <a href="/">← Back to Home</a>
+  </div>
+
+  <script>
+    gsap.from(".profile-container", {
+      y: 30,
+      opacity: 0,
+      duration: 1.2,
+      ease: "power2.out"
+    });
+  </script>
+</body>
+</html>
